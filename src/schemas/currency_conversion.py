@@ -1,7 +1,7 @@
 from datetime import datetime
 from enum import StrEnum
 
-from pydantic import BaseModel
+from pydantic import BaseModel, ConfigDict
 
 
 class Currency(StrEnum):
@@ -16,7 +16,7 @@ class Currency(StrEnum):
 
     @classmethod
     def is_a_supported_currency(cls, value: str) -> bool:
-        return value in cls.choices()
+        return value in cls.supported_currencies()
 
 
 class CurrencyConversionCreate(BaseModel):
@@ -36,5 +36,4 @@ class CurrencyConversionResponse(BaseModel):
     rate: float
     timestamp: datetime
 
-    class Config:
-        orm_mode = True
+    model_config = ConfigDict(from_attributes=True)

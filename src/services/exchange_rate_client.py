@@ -17,7 +17,7 @@ class ExchangeRateService:
         self.api_key = self.API_KEY
 
     def get_rates(self, base_currency: "Currency") -> Optional[Dict[str, float]]:
-        params = {"base": base_currency}
+        params = {"base": base_currency.value}
 
         if self.api_key:
             params["access_key"] = self.api_key

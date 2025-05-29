@@ -1,12 +1,8 @@
-from typing import Annotated
+from sqlalchemy.orm import Session
 
-from fastapi import Depends
-
-from application.database import SessionLocal, get_db
-
-Session = Annotated[SessionLocal, Depends(get_db)]
+from application.database import get_db
 
 
 class Repository:
-    def __init__(self, db_session: Session = Depends(get_db)):
-        self.db = db_session
+    def __init__(self, db: Session = next(get_db())):
+        self.db = db

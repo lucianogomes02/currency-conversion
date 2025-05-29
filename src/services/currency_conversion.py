@@ -19,9 +19,8 @@ class CurrencyConversionService:
     def create_conversion(
         self, user_id: str, source_currency: Currency, target_currency: Currency, source_amount: float
     ) -> CurrencyConversionResponse:
-        if (
-            not Currency.is_a_supported_currency(source_currency)
-            or Currency.is_a_supported_currency(target_currency) is not False
+        if not Currency.is_a_supported_currency(source_currency.value) or not Currency.is_a_supported_currency(
+            target_currency.value
         ):
             raise ValueError(f"Supported currencies are: {Currency.supported_currencies()}")
 
@@ -29,7 +28,7 @@ class CurrencyConversionService:
             rate = 1.0
             target_amount = source_amount
         else:
-            rates = self.exchange_rate_service.get_rates(base_currency=target_currency)
+            rates = self.exchange_rate_service.get_rates(base_currency=Currency.EUR)
             if rates is None:
                 raise ConnectionError("Failed to fetch exchange rates")
 
@@ -58,4 +57,4 @@ class CurrencyConversionService:
         )
 
         created = self.repo.create(transaction)
-        return CurrencyConversionResponse.from_orm(created)
+        return CurrencyConversionResponse.model_validate(created)

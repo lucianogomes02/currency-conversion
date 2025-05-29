@@ -1,12 +1,7 @@
-from typing import Annotated, List, Optional
+from typing import List, Optional
 
-from fastapi.params import Depends
-
-from application.database import SessionLocal, get_db
 from libs.repository import Repository
 from src.models import CurrencyConversion
-
-Session = Annotated[SessionLocal, Depends(get_db)]
 
 
 class CurrencyConversionRepository(Repository):
