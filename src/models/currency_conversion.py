@@ -1,7 +1,9 @@
 import uuid
 from datetime import datetime, timezone
 
-from sqlalchemy import Column, DateTime, Enum as SQLEnum, Float, String
+from sqlalchemy import Column, DateTime, Float, String
+from sqlalchemy import Enum as SQLEnum
+
 from application.database import Base
 from src.schemas.currency_conversion import Currency
 

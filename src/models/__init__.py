@@ -1,1 +1,1 @@
-from .currency_conversion import CurrencyConversion
+from .currency_conversion import CurrencyConversion as CurrencyConversion

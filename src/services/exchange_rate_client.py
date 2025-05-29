@@ -1,6 +1,7 @@
 import os
+from typing import Dict, Optional
+
 import requests
-from typing import Optional, Dict
 from dotenv import load_dotenv
 
 from src.schemas.currency_conversion import Currency

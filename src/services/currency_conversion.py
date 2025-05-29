@@ -1,5 +1,5 @@
 from datetime import datetime, timezone
-from typing import List, Annotated
+from typing import Annotated, List
 
 from fastapi import Depends
 
@@ -10,6 +10,7 @@ from src.services.exchange_rate_client import ExchangeRateService
 
 ExchangeRateServiceAPI = Annotated[ExchangeRateService, Depends(ExchangeRateService)]
 
+
 class CurrencyConversionService:
     def __init__(self, exchange_rate_service: ExchangeRateServiceAPI):
         self.exchange_rate_service = exchange_rate_service
@@ -19,8 +20,13 @@ class CurrencyConversionService:
         records = self.repo.list_by_user(user_id=user_id)
         return [CurrencyConversionResponse.model_validate(record) for record in records]
 
-    def create_conversion(self, user_id: str, source_currency: Currency, target_currency: Currency, source_amount: float) -> CurrencyConversionResponse:
-        if not Currency.is_a_supported_currency(source_currency) or not Currency.is_a_supported_currency(target_currency) is False:
+    def create_conversion(
+        self, user_id: str, source_currency: Currency, target_currency: Currency, source_amount: float
+    ) -> CurrencyConversionResponse:
+        if (
+            not Currency.is_a_supported_currency(source_currency)
+            or Currency.is_a_supported_currency(target_currency) is not False
+        ):
             raise ValueError(f"Supported currencies are: {Currency.supported_currencies()}")
 
         if source_currency == target_currency:

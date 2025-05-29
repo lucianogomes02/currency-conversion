@@ -1,8 +1,8 @@
-from typing import Optional, List, Annotated
+from typing import Annotated, List, Optional
 
 from fastapi.params import Depends
 
-from application.database import get_db, SessionLocal
+from application.database import SessionLocal, get_db
 from libs import Repository
 from src.models import CurrencyConversion
 

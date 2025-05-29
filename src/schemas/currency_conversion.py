@@ -18,6 +18,7 @@ class Currency(StrEnum):
     def is_a_supported_currency(cls, value: str) -> bool:
         return value in cls.choices()
 
+
 class CurrencyConversionCreate(BaseModel):
     user_id: str
     source_currency: Currency
