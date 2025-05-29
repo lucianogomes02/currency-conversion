@@ -11,9 +11,10 @@ load_dotenv()
 
 class ExchangeRateService:
     BASE_URL = os.getenv("EXCHANGE_API_BASE_URL")
+    API_KEY = os.getenv("EXCHANGE_API_KEY")
 
-    def __init__(self, api_key: Optional[str] = None):
-        self.api_key = api_key
+    def __init__(self):
+        self.api_key = self.API_KEY
 
     def get_rates(self, base_currency: "Currency") -> Optional[Dict[str, float]]:
         params = {"base": base_currency}

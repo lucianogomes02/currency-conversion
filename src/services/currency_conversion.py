@@ -1,19 +1,15 @@
 from datetime import datetime, timezone
-from typing import Annotated, List
-
-from fastapi import Depends
+from typing import List
 
 from src.models import CurrencyConversion
 from src.repository.currency_conversion import CurrencyConversionRepository
 from src.schemas.currency_conversion import Currency, CurrencyConversionResponse
 from src.services.exchange_rate_client import ExchangeRateService
 
-ExchangeRateServiceAPI = Annotated[ExchangeRateService, Depends(ExchangeRateService)]
-
 
 class CurrencyConversionService:
-    def __init__(self, exchange_rate_service: ExchangeRateServiceAPI):
-        self.exchange_rate_service = exchange_rate_service
+    def __init__(self):
+        self.exchange_rate_service = ExchangeRateService()
         self.repo = CurrencyConversionRepository()
 
     def list_by_user(self, user_id: str) -> List[CurrencyConversionResponse]:
