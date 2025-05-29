@@ -3,7 +3,7 @@ from typing import Optional, List, Annotated
 from fastapi.params import Depends
 
 from application.database import get_db, SessionLocal
-from application.libs.repository import Repository
+from libs import Repository
 from src.models import CurrencyConversion
 
 Session = Annotated[SessionLocal, Depends(get_db)]
