@@ -177,3 +177,5 @@ pyrightconfig.json
 
 /data
 /mongo-data
+
+conversions.db
