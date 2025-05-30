@@ -1,0 +1,52 @@
+name: Pipeline-Actions
+on: [pull_request]
+jobs:
+  linter:
+    runs-on: ubuntu-latest
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.12'
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Run Ruff Linter Check Task
+        run: poetry run task lint
+
+  tests:
+    runs-on: ubuntu-latest
+    services:
+      docker:
+        image: docker:20.10.7
+        options: --privileged
+    steps:
+      - name: Checkout code
+        uses: actions/checkout@v2
+
+      - name: Install Python
+        uses: actions/setup-python@v2
+        with:
+          python-version: '3.12'
+
+      - name: Install Docker-Compose
+        run: sudo apt-get update && sudo apt-get install -y docker-compose
+
+      - name: Install poetry
+        run: pipx install poetry
+
+      - name: Install dependencies
+        run: poetry install
+
+      - name: Run Docker-Compose Mongo Test Setup
+        run: docker-compose -f infra/docker-compose-tests.yaml up -d
+
+      - name: Run Tests
+        run: poetry run task test
