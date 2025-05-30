@@ -1,8 +1,13 @@
 name: Pipeline-Actions
 on: [pull_request]
+
 jobs:
   linter:
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: sqlite:///./conversions.db
+      EXCHANGE_API_BASE_URL: http://api.exchangeratesapi.io/latest
+      EXCHANGE_API_KEY: 23987d2b3035e3fc40a6156fe7b23c09
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -23,6 +28,9 @@ jobs:
 
   tests:
     runs-on: ubuntu-latest
+    env:
+      DATABASE_URL: postgres://user:pass@localhost:5432/dbname
+      RABBITMQ_HOST: localhost
     services:
       docker:
         image: docker:20.10.7
