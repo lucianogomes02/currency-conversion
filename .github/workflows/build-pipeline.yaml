@@ -36,17 +36,11 @@ jobs:
         with:
           python-version: '3.12'
 
-      - name: Install Docker-Compose
-        run: sudo apt-get update && sudo apt-get install -y docker-compose
-
       - name: Install poetry
         run: pipx install poetry
 
       - name: Install dependencies
         run: poetry install
-
-      - name: Run Docker-Compose Mongo Test Setup
-        run: docker-compose -f infra/docker-compose-tests.yaml up -d
 
       - name: Run Tests
         run: poetry run task test
