@@ -4,10 +4,6 @@ on: [pull_request]
 jobs:
   linter:
     runs-on: ubuntu-latest
-    env:
-      DATABASE_URL: ${{ secrets.DATABASE_URL }}
-      EXCHANGE_API_BASE_URL: http://api.exchangeratesapi.io/latest
-      EXCHANGE_API_KEY: ${{ secrets.EXCHANGE_API_KEY }}
     steps:
       - name: Checkout code
         uses: actions/checkout@v2
@@ -29,8 +25,9 @@ jobs:
   tests:
     runs-on: ubuntu-latest
     env:
-      DATABASE_URL: postgres://user:pass@localhost:5432/dbname
-      RABBITMQ_HOST: localhost
+      DATABASE_URL: ${{ secrets.DATABASE_URL }}
+      EXCHANGE_API_BASE_URL: http://api.exchangeratesapi.io/latest
+      EXCHANGE_API_KEY: ${{ secrets.EXCHANGE_API_KEY }}
     services:
       docker:
         image: docker:20.10.7
