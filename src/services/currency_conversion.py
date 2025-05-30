@@ -19,8 +19,8 @@ class CurrencyConversionService:
     def create_conversion(
         self, user_id: str, source_currency: Currency, target_currency: Currency, source_amount: float
     ) -> CurrencyConversionResponse:
-        if not Currency.is_a_supported_currency(source_currency.value) or not Currency.is_a_supported_currency(
-            target_currency.value
+        if not Currency.is_a_supported_currency(source_currency) or not Currency.is_a_supported_currency(
+            target_currency
         ):
             raise ValueError(f"Supported currencies are: {Currency.supported_currencies()}")
 

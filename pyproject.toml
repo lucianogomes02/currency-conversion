@@ -29,7 +29,8 @@ alembic = "^1.16.1"
 [tool.taskipy.tasks]
 lint = 'ruff check .; ruff check . --diff'
 format = 'ruff check . --fix; ruff format .'
-test = 'pytest -s -x -vv'
+test = 'pytest src/tests'
+
 
 [tool.ruff]
 line-length = 120

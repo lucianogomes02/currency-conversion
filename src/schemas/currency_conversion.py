@@ -12,7 +12,7 @@ class Currency(StrEnum):
 
     @classmethod
     def supported_currencies(cls):
-        return [currency.value for currency in cls]
+        return [currency for currency in cls]
 
     @classmethod
     def is_a_supported_currency(cls, value: str) -> bool:
